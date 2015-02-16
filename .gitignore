@@ -1,29 +1,9 @@
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+# Use Makefile as a soft link to your platform makefile (Makefile.linux/Makefile.mac)
+Makefile
 
-# Precompiled Headers
-*.gch
-*.pch
+.project
+.cproject
+.settings
+build
+firmware
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
