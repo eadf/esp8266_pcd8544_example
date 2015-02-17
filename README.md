@@ -20,7 +20,7 @@ All of the pins are configurable, you just set the pins you want to use in the s
 
 I don't know if it is required but i put 1KΩ resistors on each GPIO pin, and it does not seem to cause any problems. 
 
-Take a look at [esp_mqtt_lcd](https://github.com/eadf/esp_mqtt_lcd) to see an example on how this project can be used as a library module (git subtree) in your own project.
+Take a look at [esp_mqtt_lcd](https://github.com/eadf/esp_mqtt_lcd) to see another example on how the pcd8544 driver can be used as a library module (git subtree) in your own project.
 
 The makefile is copied from [esp_mqtt.](https://github.com/tuanpmt/esp_mqtt)
 
