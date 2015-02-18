@@ -42,14 +42,14 @@ loop(os_event_t *events) {
   } else if (loopIterations == 3){
     PCD8544_lcdClear();
   } else {
-    os_printf("Updating display\n");
+
     // Draw a Box
     PCD8544_drawLine();
     int a=0;
     PCD8544_gotoXY(17,1);
     // Put text in Box
     PCD8544_lcdPrint("ESP8266");
-    PCD8544_gotoXY(24,3);
+    PCD8544_gotoXY(24,2);
     if (toggle){
       PCD8544_lcdCharacter('H');
       PCD8544_lcdCharacter('E');
@@ -59,11 +59,10 @@ loop(os_event_t *events) {
       PCD8544_lcdCharacter(' ');
       PCD8544_lcdCharacter('=');
       // Draw + at this position
-      PCD8544_gotoXY(10,3);
+      PCD8544_gotoXY(10,2);
       PCD8544_lcdCharacter('=');
-      os_delay_us(50000);
     } else {
-      PCD8544_gotoXY(24,3);
+      PCD8544_gotoXY(24,2);
       PCD8544_lcdCharacter('h');
       PCD8544_lcdCharacter('e');
       PCD8544_lcdCharacter('l');
@@ -72,10 +71,18 @@ loop(os_event_t *events) {
       PCD8544_lcdCharacter(' ');
       PCD8544_lcdCharacter('-');
       // Draw - at this position
-      PCD8544_gotoXY(10,3);
+      PCD8544_gotoXY(10,2);
       PCD8544_lcdCharacter('-');
-      os_delay_us(50000);
     }
+    uint8_t contrast = ((loopIterations << 2 ) & 0x1f) + 40;
+    PCD8544_setContrast(contrast);
+    PCD8544_gotoXY(2,3);
+    PCD8544_lcdPrint(" contrast:");
+    char buf[] = "         ";
+    os_sprintf(buf,"%d   ", contrast);
+    PCD8544_gotoXY(32,4);
+    PCD8544_lcdPrint(buf);
+    os_printf("Updating display. Contrast = %d\n", contrast);
     toggle = !toggle;
   }
 }
