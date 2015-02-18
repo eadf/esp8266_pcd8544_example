@@ -19,7 +19,7 @@ static uint8_t openhardware_logo[] = {
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x0e,0x1f,0x3f,0x7f,0xff,0xff,0xff,0x7f,0x7f,0x3f,0x3f,0x1f,0x3f,0x3f,0x3f,0x0f,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x03,0x0f,0x3f,0x3f,0x3f,0x1f,0x3f,0x3f,0x7f,0xff,0xff,0xff,0xff,0x3f,0x3f,0x1e,0x0c,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
 };
 
-#define user_procLcdUpdatePeriod      1000
+#define user_procLcdUpdatePeriod      500
 #define user_procTaskPrio        0
 #define user_procTaskQueueLen    1
 
@@ -34,7 +34,6 @@ static void nop_procTask(os_event_t *events);
 //Main code function
 static void ICACHE_FLASH_ATTR
 loop(os_event_t *events) {
-  static bool toggle = true;
   static uint32_t loopIterations = 0;
   loopIterations+=1;
   if (loopIterations < 3) {
@@ -50,7 +49,7 @@ loop(os_event_t *events) {
     // Put text in Box
     PCD8544_lcdPrint("ESP8266");
     PCD8544_gotoXY(24,2);
-    if (toggle){
+    if (loopIterations & 1){
       PCD8544_lcdCharacter('H');
       PCD8544_lcdCharacter('E');
       PCD8544_lcdCharacter('L');
@@ -74,7 +73,7 @@ loop(os_event_t *events) {
       PCD8544_gotoXY(10,2);
       PCD8544_lcdCharacter('-');
     }
-    uint8_t contrast = ((loopIterations << 2 ) & 0x1f) + 40;
+    uint8_t contrast = ((loopIterations << 2)+25) & 0x7f; // +25 so that we start in the visible range
     PCD8544_setContrast(contrast);
     PCD8544_gotoXY(2,3);
     PCD8544_lcdPrint(" contrast:");
@@ -83,7 +82,6 @@ loop(os_event_t *events) {
     PCD8544_gotoXY(32,4);
     PCD8544_lcdPrint(buf);
     os_printf("Updating display. Contrast = %d\n", contrast);
-    toggle = !toggle;
   }
 }
 
