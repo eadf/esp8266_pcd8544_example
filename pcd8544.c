@@ -1,5 +1,10 @@
 /*
+ * pcd8544.c
  *
+ *  PCD8544 bit-banging driver ported from http://playground.arduino.cc/Code/PCD8544
+ *
+ *  Created on: Jan 7, 2015
+ *      Author: Eadf
  */
 
 #include "pcd8544/pcd8544.h"
@@ -279,6 +284,10 @@ PCD8544_drawLine(void) {
   }
 }
 
+/**
+ * Sets the contrast [0x00 - 0x7f].
+ * Useful, visible range is about 40-60.
+ */
 void ICACHE_FLASH_ATTR
 PCD8544_setContrast(uint8_t contrast) {
   contrast &= 0x7f;
