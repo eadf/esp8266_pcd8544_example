@@ -96,10 +96,8 @@ setup(void) {
   pcd8544_settings.biasMode = 0x14;
   pcd8544_settings.inverse = false;
 
-  pcd8544_settings.resetPin = 4;
-  pcd8544_settings.scePin = 5;
-  //pcd8544_settings.resetPin = 0;
-  //pcd8544_settings.scePin = 2;
+  pcd8544_settings.resetPin = -1; // 4;
+  pcd8544_settings.scePin = -1; //5;
 
   pcd8544_settings.dcPin = 12;
   pcd8544_settings.sdinPin = 13;
