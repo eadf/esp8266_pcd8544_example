@@ -3,7 +3,7 @@
 
 The driver is a direct port of code found at [arduino playground.](http://playground.arduino.cc/Code/PCD8544)
 
-The interface requires 5 available GPIO outputs so an ESP-01 will not work. 
+Good news, the interface no longer requires 5 available GPIO outputs so an ESP-01 will indeed work. (But only if the RX pin of the esp is used.)
 
 This is how the code is hooked up by default:
 
@@ -16,6 +16,11 @@ Din Pin 4 | GPIO13
 Clk Pin 5 | GPIO14
 
 Some ESP-12 have GPIO4 & GPIO5 reversed.
+
+The RST pin is optional, set it to a negative value and tie PCD8544 reset to ESP reset via a resistor.
+
+The CE pin is optional, set it to a negative value and tie PCD8544 CE pin to GND via a resistor.
+
 All of the pins are configurable, you just set the pins you want to use in the setting struct.
 
 I don't know if it is required but i put 1KΩ resistors on each GPIO pin, and it does not seem to cause any problems. 
