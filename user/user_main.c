@@ -73,7 +73,7 @@ loop(os_event_t *events) {
       PCD8544_gotoXY(10,2);
       PCD8544_lcdCharacter('-');
     }
-    uint8_t contrast = ((loopIterations << 2)+25) & 0x7f; // +25 so that we start in the visible range
+    uint8_t contrast = ((loopIterations << 2)+25) & 0x3f; // +25 so that we start in the visible range
     PCD8544_setContrast(contrast);
     PCD8544_gotoXY(2,3);
     PCD8544_lcdPrint(" contrast:");
